@@ -1,0 +1,139 @@
+openapi: 3.0.3
+info:
+  title: reactive product for test
+  description: |-
+    The reactive product for test
+  version: 1.0.0
+tags:
+  - name: reactive-product
+paths:
+  /products:
+    get:
+      operationId: getProducts
+      summary: Получение списка всех товаров
+      description: |-
+        Получение списка всех товаров
+      tags:
+        - reactive-product
+      responses:
+        200:
+          description: |-
+            Query succeeded (though might be empty list)
+          content:
+            application/json;charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+    post:
+      operationId: createProduct
+      summary: Создание нового товара
+      description: |-
+        Создание нового товара
+      tags:
+        - reactive-product
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: "#/components/schemas/Product"
+        description: The product to be created
+        required: true
+      responses:
+        200:
+          description: Created
+          content:
+            application/json;charset=utf-8:
+              schema:
+                $ref: "#/components/schemas/Product"
+  /products/{id}:
+    get:
+      operationId: getProduct
+      summary: Получение информации о товаре по его идентификатору
+      description: |-
+        Получение информации о товаре по его идентификатору
+      tags:
+        - reactive-product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: |-
+            Query succeeded
+          content:
+            application/json;charset=utf-8:
+              schema:
+                  $ref: "#/components/schemas/Product"
+    put:
+      operationId: updateProduct
+      summary: Обновление информации о товаре
+      description: |-
+        Обновление информации о товаре
+      tags:
+          - reactive-product
+      requestBody:
+        content:
+          application/json;charset=utf-8:
+            schema:
+              $ref: "#/components/schemas/Product"
+        description: The product to be updated
+        required: true
+      parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: integer
+      responses:
+          200:
+            description: |-
+              Query succeeded
+            content:
+              application/json;charset=utf-8:
+                schema:
+                    $ref: "#/components/schemas/Product"
+    delete:
+      operationId: removeProduct
+      summary: Удаление товара
+      description: |-
+        Удаление товара
+      tags:
+        - reactive-product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: |-
+            Query succeeded
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - name
+      description: Описание продукта
+      properties:
+        id:
+          type: integer
+          description: Identifier of the product
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+          format: float
+        image:
+          type: string
+        category:
+          type: string
+        inStock:
+          type: boolean

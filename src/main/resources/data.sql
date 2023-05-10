@@ -1,0 +1,1 @@
+create table product(id serial primary key, product_json jsonb)
