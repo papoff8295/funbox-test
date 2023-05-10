@@ -1,0 +1,10 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/reactive
+    username: postgres
+    password: root
+springdoc:
+  swagger-ui:
+    urls:
+      - name: Spec from code
+        url: /v3/api-docs
